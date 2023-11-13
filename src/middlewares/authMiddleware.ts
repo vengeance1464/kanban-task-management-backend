@@ -1,7 +1,9 @@
 import  { Request, Response, NextFunction } from 'express';
-import { getAuth, signInWithCredential, GoogleAuthProvider } from "firebase/auth";
+import * as admin from 'firebase-admin';
+import { InputRequest } from '../types';
 
-export const isRequestAuthenticated=async (req:Request,res:Response,next:NextFunction)=>{
+
+export const isRequestAuthenticated=async (req:InputRequest,res:Response,next:NextFunction)=>{
     const token = req.headers.authorization?.split('Bearer ')[1];
 
     if(!token || token===null)
@@ -11,25 +13,17 @@ export const isRequestAuthenticated=async (req:Request,res:Response,next:NextFun
 
      try
      {
-        const credential = GoogleAuthProvider.credential(token);
-        const auth = getAuth();
-        const signInResult= await signInWithCredential(auth, credential);
-        if(signInResult.status===200)
-        {
-            next()
-        }
-        else
-        {
-            return res.status(401).send('Unauthorized');
-        }
+
+        const decodedToken =await admin.auth().verifyIdToken(token)
+        console.log('ID Token correctly decoded', decodedToken);
+        req.user = decodedToken;
+        next();
+    
      }
      catch(error:any)
      {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-  // The email of the user's account used.
-        const email = error.customData.email;
-      // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
+        console.error('Error while verifying Firebase ID token:', error);
+        res.status(403).send('Unauthorized');
+        return;
      }
 }
