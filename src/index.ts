@@ -4,10 +4,15 @@ import { isRequestAuthenticated } from './middlewares';
 import  { Request, Response,  } from 'express';
 import cors from 'cors';
 import { initializeApp } from './initializeFirebase';
-
-
+import User from './models/userSchema';
+import connectToMongoDB from './initializeMongoose';
+import { userRouter } from './routes/userRoutes';
+import { boardRouter } from './routes/boardRoutes';
+import { taskRouter } from './routes/taskRoutes';
 
 initializeApp()
+connectToMongoDB()
+
 const app = express();
 
 // Middlewares
@@ -21,11 +26,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(isRequestAuthenticated)
 
-
-app.get("/kanban",(req:Request,res:Response)=>{
-    console.log("ndigkndk")
-    res.status(200).send("Cool")
-})
+app.use("/users",userRouter)
+app.use("/board",boardRouter)
+app.use("/tasks",taskRouter)
 // Use centralized route handling
 
 //app.use('/', routes);
