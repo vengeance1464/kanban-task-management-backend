@@ -20,10 +20,6 @@ app.use((0, cors_1.default)({
 app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: true }));
 app.use(middlewares_1.isRequestAuthenticated);
-app.get("/kanban", (req, res) => {
-    console.log("ndigkndk");
-    res.status(200).send("Cool");
-});
 // Use centralized route handling
 //app.use('/', routes);
 app.listen(3001, () => console.log('Server running on port 3001'));

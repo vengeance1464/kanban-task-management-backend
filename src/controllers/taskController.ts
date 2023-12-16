@@ -12,7 +12,6 @@ class TaskController
     }
     addTask(request:any)
     {
-         console.log("Req ",request)
         const task={
            userId:request.user.user_id,
            ...request.body
@@ -46,6 +45,29 @@ class TaskController
             boardId:Number(request.params.id)
         }
         return await this.taskService.fetchAllTasks(criteria)
+    }
+
+    async fetchTaskStats(request:any)
+    {
+        const taskTodoCondition={status:"Todo"}
+        const taskDoingCondition={status:"Doing"}
+        const taskDoneCondition={status:"Done"}
+        const criteria={
+            userId:request.user.user_id,
+            $or: [taskTodoCondition, taskDoingCondition,taskDoneCondition]
+        }
+
+        const tasks= await this.taskService.fetchAllTasks(criteria)
+        const taskStats=tasks.reduce((accum:any,curr:any)=>{
+            if(curr.status in accum )
+            {
+              accum[curr.status]+=1
+            }
+            return accum
+        },{"Todo":0,"Doing":0,"Done":0})
+        console.log("statsv",taskStats)
+
+        return taskStats
     }
 }
 

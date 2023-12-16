@@ -13,10 +13,4 @@ router.post('/addUser', (req, res) => {
 });
 
 
-router.get('/getUser/:id',(req,res)=>{
-
-    
-})
-
-
 export {router as userRouter}

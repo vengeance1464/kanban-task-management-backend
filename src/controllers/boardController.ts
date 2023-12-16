@@ -11,7 +11,6 @@ class BoardController
     }
     addBoard(request:any)
     {
-         console.log("Req ",request)
         const board={
            userId:request.user.user_id,
            ...request.body
@@ -22,7 +21,6 @@ class BoardController
     async fetchAllBoards(request:any)
     {
         const boards=await this.boardService.fetchAllBoards(request.user.user_id)
-        console.log("boards ",boards)
         return boards
     }
 }

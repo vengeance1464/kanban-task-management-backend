@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const MONGO_URI = 'mongodb://localhost:27017/kanban';
+const MONGO_URI = `mongodb+srv://mongoadmin:Priyam1464@kanban-cluster.azvlyzq.mongodb.net/?retryWrites=true&w=majority`;
 
 const connectToMongoDB = async () => {
   try {

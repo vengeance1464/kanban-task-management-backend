@@ -11,20 +11,21 @@ const router = express.Router();
 router.post('/add', (req, res) => {
     const taskController=new TaskController()
    taskController.addTask(req)
-    res.send('Board added successfully');
+    res.send('Task added successfully');
  });
 
 
  router.put('/update', (req, res) => {
     const taskController=new TaskController()
    taskController.updateTask(req)
-    res.send('Board added successfully');
+    res.send('Task updated successfully');
  });
 
  router.delete('/delete', (req, res) => {
     const taskController=new TaskController()
+    console.log("Task delete ",req.body)
    taskController.deleteTask(req)
-    res.send('Board added successfully');
+    res.send('Task deleted successfully');
  });
 
  router.get('/getAll/:id',async (req,res)=>{
@@ -32,6 +33,12 @@ router.post('/add', (req, res) => {
   const tasks= await taskController.fetchAllTasks(req)
     res.send(tasks);
 
+ });
+
+ router.get('/getStats',async (req,res)=>{
+   const taskController=new TaskController()
+  const tasksStats= await taskController.fetchTaskStats(req)
+ res.send(tasksStats)
  });
 
  export {router as taskRouter}

@@ -16,7 +16,7 @@ const taskSchema = new Schema({
     subtasks:[subTaskSchema],
     status:String,
     boardId:Number
-  });
+  },{ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }});
 
 const Task = model('Task', taskSchema);
 export default Task

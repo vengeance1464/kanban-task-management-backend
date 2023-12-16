@@ -15,7 +15,6 @@ router.post('/add', (req, res) => {
 
  router.get('/getAll', async (req, res) => {
     const allBoards=await boardController.fetchAllBoards(req)
-    console.log("boards ",allBoards)
     res.send(allBoards);
  });
 

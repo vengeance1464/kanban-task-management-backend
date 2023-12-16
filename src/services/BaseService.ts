@@ -9,14 +9,14 @@ async add (model:any){
 
 async findOne(model:any,criteria?:any){
     
-    const document= await model.findOne(criteria)
+    const document= await model.findOne(criteria).sort({ createdAt: 1 })
     return document
 }
 
 
 async findMultiple(model:any,criteria?:any)
 {
-    const documents= await model.find(criteria)
+    const documents= await model.find(criteria).sort({ createdAt: 1 })
     return documents
 }
 
