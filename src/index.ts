@@ -9,6 +9,8 @@ import connectToMongoDB from './initializeMongoose';
 import { userRouter } from './routes/userRoutes';
 import { boardRouter } from './routes/boardRoutes';
 import { taskRouter } from './routes/taskRoutes';
+import * as dotenv from "dotenv";
+dotenv.config();
 
 initializeApp()
 connectToMongoDB()
@@ -18,7 +20,7 @@ const app = express();
 // Middlewares
 // Setup CORS
 app.use(cors({
-    origin: 'http://localhost:3000', // Replace with the domain you want to allow
+    origin: ['http://localhost:3000',process.env.ALLOWED_HOST!], // Replace with the domain you want to allow
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // HTTP methods to allow
     allowedHeaders: ['Content-Type', 'Authorization'] // Headers to allow
   }));
@@ -32,5 +34,5 @@ app.use("/tasks",taskRouter)
 // Use centralized route handling
 
 //app.use('/', routes);
-app.listen(8080, () => console.log('Server running on port 8080'));
+app.listen(process.env.PORT||3001, () => console.log('Server running on port 8080'));
 export default app;
