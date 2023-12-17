@@ -32,5 +32,5 @@ app.use("/tasks",taskRouter)
 // Use centralized route handling
 
 //app.use('/', routes);
-app.listen(3001, () => console.log('Server running on port 3001'));
+app.listen(8080, () => console.log('Server running on port 8080'));
 export default app;
