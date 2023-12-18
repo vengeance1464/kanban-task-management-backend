@@ -19,11 +19,16 @@ const app = express();
 
 // Middlewares
 // Setup CORS
-app.use(cors({
-    origin: ['http://localhost:3000',process.env.ALLOWED_HOST!], // Replace with the domain you want to allow
+const allowedOrigins = [
+  'http://localhost:3000',process.env.ALLOWED_HOST!
+];
+const corsOption={
+  origin:'*',
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // HTTP methods to allow
     allowedHeaders: ['Content-Type', 'Authorization'] // Headers to allow
-  }));
+  }
+//app.options('*', cors(corsOption));
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(isRequestAuthenticated)
