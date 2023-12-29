@@ -35,10 +35,18 @@ router.post('/add', (req, res) => {
 
  });
 
- router.get('/getStats',async (req,res)=>{
+ router.get('/getStats/:id?',async (req,res)=>{
    const taskController=new TaskController()
   const tasksStats= await taskController.fetchTaskStats(req)
  res.send(tasksStats)
  });
+
+
+ router.get('/filter/',async (req,res)=>{
+   const taskController=new TaskController()
+   const filteredTasks= await taskController.filterTasks(req)
+   res.send(filteredTasks)
+
+ })
 
  export {router as taskRouter}
