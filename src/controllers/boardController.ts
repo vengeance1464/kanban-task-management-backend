@@ -12,6 +12,7 @@ class BoardController
     addBoard(request:any)
     {
         const board={
+            
            userId:request.user.user_id,
            ...request.body
         }

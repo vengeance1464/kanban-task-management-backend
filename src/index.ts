@@ -10,6 +10,7 @@ import { userRouter } from './routes/userRoutes';
 import { boardRouter } from './routes/boardRoutes';
 import { taskRouter } from './routes/taskRoutes';
 import * as dotenv from "dotenv";
+import { assistantRouter } from './routes/assistantRoutes';
 dotenv.config();
 
 initializeApp()
@@ -36,6 +37,7 @@ app.use(isRequestAuthenticated)
 app.use("/users",userRouter)
 app.use("/board",boardRouter)
 app.use("/tasks",taskRouter)
+app.use("/ai",assistantRouter)
 // Use centralized route handling
 
 //app.use('/', routes);
